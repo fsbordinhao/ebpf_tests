@@ -6,7 +6,9 @@ build:
 ifneq ($(CHECKASM), OK)
 	sudo ln -s /usr/include/x86_64-linux-gnu/asm/ /usr/include/asm
 endif
-	clang -O2 -Wall -target bpf -c xdp_drop.c -o xdp_drop.o
+	clang \
+		-I. -I../kernelsource/linux-hwe-5.11-5.11.0/tools/lib \
+		-O2 -Wall -target bpf -c xdp_drop.c -o xdp_drop.o
 
 attach: build
 	sudo ip link set dev enp0s8 xdp obj xdp_drop.o
