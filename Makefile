@@ -16,3 +16,5 @@ attach: build
 detach:
 	sudo ip link set dev $(interface) xdp off
 
+clean:
+	rm xdp_drop_icmp.o
