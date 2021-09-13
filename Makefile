@@ -8,14 +8,11 @@ ifneq ($(CHECKASM), OK)
 endif
 	clang \
 		-I. -I../kernelsource/linux-hwe-5.11-5.11.0/tools/lib \
-		-O2 -Wall -target bpf -c xdp_drop.c -o xdp_drop.o
+		-O2 -Wall -target bpf -c xdp_drop_icmp.c -o xdp_drop_icmp.o
 
 attach: build
-	sudo ip link set dev enp0s8 xdp obj xdp_drop.o
+	sudo ip link set dev $(interface) xdp obj xdp_drop_icmp.o
 
 detach:
-	sudo ip link set dev enp0s8 xdp off
+	sudo ip link set dev $(interface) xdp off
 
-
-#Show xdp in the enp0s8:
-#sudo ip link show dev enp0s8
