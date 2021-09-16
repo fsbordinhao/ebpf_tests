@@ -10,10 +10,10 @@ endif
 		-I. -I../kernelsource/linux-hwe-5.11-5.11.0/tools/lib \
 		-O2 -Wall -target bpf -c xdp_drop_icmp.c -o xdp_drop_icmp.o
 
-attach: build
+attach_icmp_drop: build
 	sudo ip link set dev $(interface) xdp obj xdp_drop_icmp.o
 
-detach:
+detach_icmp_drop:
 	sudo ip link set dev $(interface) xdp off
 
 clean:
